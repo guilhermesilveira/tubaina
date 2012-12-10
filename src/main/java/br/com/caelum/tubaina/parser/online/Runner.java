@@ -41,9 +41,9 @@ public class Runner {
 		Runner runner = new Runner(
 				new Gnarus(),
 				new AfcReader(), 
-				"/Users/mauricioaniche/textos/apostilas-novas/FJ-11/", 
-				"FJ-11");
-		// TODO: passar path do pygments
+				args[0],
+				args[1]
+				);
 		
 		runner.start();
 		System.out.println("FINISH!");
