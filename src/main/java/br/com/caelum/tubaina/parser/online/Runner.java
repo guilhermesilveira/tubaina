@@ -43,6 +43,7 @@ public class Runner {
 				new AfcReader(), 
 				"/Users/mauricioaniche/textos/apostilas-novas/FJ-11/", 
 				"FJ-11");
+		// TODO: passar path do pygments
 		
 		runner.start();
 		System.out.println("FINISH!");

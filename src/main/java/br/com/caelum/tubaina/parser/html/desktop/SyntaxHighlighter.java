@@ -48,7 +48,8 @@ public class SyntaxHighlighter {
         String encoding = System.getProperty("file.encoding");
         
         ArrayList<String> commands = new ArrayList<String>();
-        commands.add("pygmentize");
+        // TODO: caminho do pygments
+        commands.add("/usr/local/bin/pygmentize");
         commands.add("-O");
         commands.add("encoding=" + encoding + ",outencoding=UTF-8" + options);
         if (output.equals(CodeOutputType.LATEX)) {

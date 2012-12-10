@@ -15,6 +15,7 @@ public class GnarusParser extends HtmlParser {
 		super(tags, noAnswer, showNotes);
 	}
 
+	// SEM PYGMENTS
     public String parseCode(String text, String options) {
     	CodeTagOptionsParser opts = new CodeTagOptionsParser();
 		String language = opts.parseLanguage(options);
@@ -22,7 +23,14 @@ public class GnarusParser extends HtmlParser {
 		if(language.equals("text")) return parseParagraph(text);
 		return "[" + language  + "]\n" + text + "\n[/" + language + "]";
     }
-
+	
+	// PYGMENTS
+//    public String parseCode(String text, String options) {
+//        SyntaxHighlighter syntaxHighlighter = new SyntaxHighlighter(new CommandExecutor(),
+//                CodeOutputType.HTML, false, new CodeCache(CodeOutputType.HTML));
+//        return new HtmlAndKindleCodeTag(syntaxHighlighter).parse(text, options);
+//	}
+    
     public String parseIndex(String name) {
     	return "";
     }

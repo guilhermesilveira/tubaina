@@ -16,7 +16,8 @@ import com.thoughtworks.xstream.XStream;
 
 public class Gnarus {
 
-	private static final String GNARUS_URL = "http://online.caelum.com.br/kjfgfjhxgdxbghbdxhvbcfhuxvfuvydfuxybgfhkszd/tubaina";
+//	private static final String GNARUS_URL = "http://online.caelum.com.br/kjfgfjhxgdxbghbdxhvbcfhuxvfuvydfuxybgfhkszd/tubaina";
+	private static final String GNARUS_URL = "http://localhost:8080/gnarus/kjfgfjhxgdxbghbdxhvbcfhuxvfuvydfuxybgfhkszd/tubaina";
 
 	public void sync(GnarusCourse course) {
 		try {
