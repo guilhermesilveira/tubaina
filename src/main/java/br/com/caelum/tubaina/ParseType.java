@@ -59,7 +59,7 @@ public enum ParseType {
 			return new SingleHtmlGenerator(parser, data);
 		}
 	},
-
+	
 	KINDLE {
 		@Override
 		public Parser getParser(RegexConfigurator conf, boolean noAnswer, boolean showNotes, String linkParameter) throws IOException {
