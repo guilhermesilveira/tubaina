@@ -46,10 +46,14 @@ public class GnarusSectionConverter {
 			Chapter exercise = exerciseFrom(sb);
 			String question = extractFromChunks(exercise);
 			
-			convertedSection.addExercise(new GnarusExercise(exNumber++, question));
+			convertedSection.addExercise(new GnarusExercise(exNumber++, question, defaultAnswer()));
 		}
 		
 		return convertedSection;
+	}
+
+	private String defaultAnswer() {
+		return "Excelente! Se você teve alguma dificuldade, não hesite em abrir uma dúvida, ok!?";
 	}
 
 	private String replaceImgs(String extractFromChunks) {

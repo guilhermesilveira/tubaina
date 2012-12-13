@@ -4,10 +4,12 @@ public class GnarusExercise {
 
 	private final int number;
 	private final String text;
+	private final String answer;
 	
-	public GnarusExercise(int number, String text) {
+	public GnarusExercise(int number, String text, String answer) {
 		this.number = number;
 		this.text = text;
+		this.answer = answer;
 	}
 
 	public int getNumber() {
@@ -18,4 +20,7 @@ public class GnarusExercise {
 		return text;
 	}
 
+	public String getAnswer() {
+		return answer;
+	}
 }

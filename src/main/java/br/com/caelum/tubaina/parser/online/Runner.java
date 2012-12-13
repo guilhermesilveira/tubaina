@@ -40,9 +40,11 @@ public class Runner {
 
 		Runner runner = new Runner(
 				new Gnarus(),
-				new AfcReader(), 
+				new AfcReader(),
 				args[0],
 				args[1]
+//				"/Users/mauricioaniche/textos/apostilas-novas/FJ-11",
+//				"FJ-11"
 				);
 		
 		runner.start();
