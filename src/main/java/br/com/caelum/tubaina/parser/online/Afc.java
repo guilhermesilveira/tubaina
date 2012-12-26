@@ -44,14 +44,23 @@ public class Afc {
 		return number;
 	}
 	
-	public static List<String> allIn(String path) {
+	public static List<String> allIn(String path, String ignoreExpr) {
 		List<String> files = new ArrayList<String>();
 		for(File f : new File(path).listFiles()) {
-			if(f.isFile() && f.getAbsoluteFile().getName().endsWith(".afc")) {
+			String fileName = f.getAbsoluteFile().getName();
+			if(f.isFile() && fileName.endsWith(".afc") && !ignore(fileName, ignoreExpr)) {
 				files.add(f.getAbsolutePath());
 			}
 		}
 		
 		return files;
+	}
+
+	private static boolean ignore(String path, String ignoreExpr) {
+		for(String regex : ignoreExpr.split(",")) {
+			if(path.startsWith(regex)) return true;
+		}
+		
+		return false;
 	}
 }
