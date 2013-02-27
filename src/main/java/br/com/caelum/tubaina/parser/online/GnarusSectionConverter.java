@@ -43,16 +43,31 @@ public class GnarusSectionConverter {
 		
         int exNumber = 1;
 		for(String sb : afc.getExercises()) {
-			Chapter exercise = exerciseFrom(sb);
-			String question = extractFromChunks(exercise);
-			
-			convertedSection.addExercise(new GnarusExercise(exNumber++, question, defaultAnswer()));
+			try {
+				Chapter questionChap = exerciseFrom(sb);
+				String question = extractFromChunks(questionChap);
+				String answer = answerFrom(sb);
+				
+				convertedSection.addExercise(new GnarusExercise(exNumber++, question, defaultAnswer(answer)));
+			} catch(Exception e) {
+				System.out.println("Exercicio " + exNumber + " no cap " + title + " nao rolou");
+			}
 		}
 		
 		return convertedSection;
 	}
 
-	private String defaultAnswer() {
+	private String answerFrom(String sb) {
+		String[] originalContent = sb.split("\\[answer\\]");
+		if(originalContent.length <= 1) return null;
+		
+		String theAnswer = originalContent[1].split("\\[/answer\\]")[0];
+		String fakeChapter = "[chapter x][section y]" + theAnswer;
+		return extractFromChunks(chapterFrom(fakeChapter));
+	}
+
+	private String defaultAnswer(String answer) {
+		if(answer!=null && answer.length()>0) return answer;
 		return "Excelente! Se você teve alguma dificuldade, não hesite em abrir uma dúvida, ok!?";
 	}
 
@@ -70,18 +85,18 @@ public class GnarusSectionConverter {
 	}
 	
 	private Chapter exerciseFrom(String originalContent) {
-		return chapterFrom("[chapter x][section y][exercise][question]" + originalContent + "[/question][/exercise]");
+		String fakeChapter = "[chapter x][section y][exercise][question]" + originalContent + "[/question][/exercise]";
+		return chapterFrom(fakeChapter);
 	}
 
 	private String extractFromChunks(Chapter c) {
 		StringBuilder result = new StringBuilder();
-        
-        for(Section s : c.getSections()) {
-        	for(Chunk chunk : s.getChunks()) {
-        		String html = chunk.getContent(parser);
-        		result.append(html);
-        	}
-        }
+
+		Section s = c.getSections().get(0);
+    	for(Chunk chunk : s.getChunks()) {
+    		String html = chunk.getContent(parser);
+    		result.append(html);
+    	}
 		return result.toString();
 	}
 }
