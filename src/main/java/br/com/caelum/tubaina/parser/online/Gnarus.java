@@ -1,6 +1,7 @@
 package br.com.caelum.tubaina.parser.online;
 
 import java.io.File;
+import java.util.List;
 import java.io.PrintStream;
 import java.util.ArrayList;
 

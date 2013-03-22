@@ -4,6 +4,7 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.io.InputStream;
 import java.util.Scanner;
 
 import org.junit.Test;
@@ -36,14 +37,11 @@ public class GistTagTest {
 
 	@Test
 	public void gistedCodeIsParsedWithLineNumbers() throws Exception {
-		String gistedCode = "GivenCode";
 		String options = "417835 #";
 		long gistId = 417835;
 
-		String json = new Scanner(
-				JsonToGistResultConverter.class
-						.getResourceAsStream("/gist.json")).useDelimiter("\\Z")
-				.next();
+		InputStream gist = JsonToGistResultConverter.class.getResourceAsStream("/gist.json");
+		String json = new Scanner(gist).useDelimiter("\\Z").next();
 
 		GistRequest mockedGistRequest = mock(GistRequest.class);
 		when(mockedGistRequest.get(gistId)).thenReturn(json);
