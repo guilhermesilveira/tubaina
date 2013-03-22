@@ -39,21 +39,40 @@ public class Runner {
 	}
 	
 	public static void main(String[] args) throws IOException {
+		
+		System.out.println("Usage: java -cp runner.jar br.com.caelum.tubaina.parser.online.Runner -s server_uri -e extra_parameter -path path -code FJ-XX -ignore PATTERN");
 
+		String server = "localhost:8080/gnarus";
+		String extraParameter = "";
+
+		String path = ".";
+		String code = "";
+		String ignore = "00";
+		for(String arg  : args) {
+			if(arg.startsWith("-s ")) {
+				server = arg.substring(3, arg.length());
+			} else if(arg.startsWith("-e ")) {
+				extraParameter = arg.substring(3, arg.length());
+			} else if(arg.startsWith("-path ")) {
+				extraParameter = arg.substring(6, arg.length());
+			} else if(arg.startsWith("-code ")) {
+				extraParameter = arg.substring(6, arg.length());
+			} else if(arg.startsWith("-ignore ")) {
+				extraParameter = arg.substring(8, arg.length());
+			}
+		}
+		if(code.equals("")) {
+			System.err.println("Did not set the course code");
+			System.exit(1);
+		}
 		Runner runner = new Runner(
-				new Gnarus(),
+				new Gnarus(server, extraParameter),
 				new AfcReader(),
-//				args[0],
-//				args[1],
-//				args[2]
-				"/Users/mauricioaniche/Desktop/struts2",
-				"FJ-39",
-				"00"
+				path, code, ignore
 				);
 		
 		runner.start();
 		System.out.println("FINISH!");
 	}
-
 
 }

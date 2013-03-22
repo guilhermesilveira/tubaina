@@ -16,8 +16,14 @@ import com.thoughtworks.xstream.XStream;
 
 public class Gnarus {
 
-	private static final String GNARUS_URL = "http://online.caelum.com.br/kjfgfjhxgdxbghbdxhvbcfhuxvfuvydfuxybgfhkszd/tubaina";
-//	private static final String GNARUS_URL = "http://localhost:8080/gnarus/kjfgfjhxgdxbghbdxhvbcfhuxvfuvydfuxybgfhkszd/tubaina";
+	private static final String GNARUS_URL = "/admin/8921d89ujdwh897u234hu/tubaina";
+	private final String server;
+	private final String extraParameter;
+
+	public Gnarus(String server, String extraParameter) {
+		this.server = server;
+		this.extraParameter = extraParameter;
+	}
 
 	public void sync(GnarusCourse course) {
 		try {
@@ -28,10 +34,11 @@ public class Gnarus {
 			backup.close();
 
 			DefaultHttpClient client = new DefaultHttpClient();
-			ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
+			List<NameValuePair> params = new ArrayList<NameValuePair>();
 			params.add(new BasicNameValuePair("xml",xml));
+			params.add(new BasicNameValuePair("extra", extraParameter));
 			
-			HttpPost post = new HttpPost(GNARUS_URL);
+			HttpPost post = new HttpPost("http://" + server + GNARUS_URL);
 			UrlEncodedFormEntity entity = new UrlEncodedFormEntity(params,"UTF-8");
 			post.setEntity(entity);
 
