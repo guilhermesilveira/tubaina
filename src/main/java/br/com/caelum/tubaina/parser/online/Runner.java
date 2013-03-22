@@ -46,9 +46,9 @@ public class Runner {
 //				args[0],
 //				args[1],
 //				args[2]
-				"/Users/mauricioaniche/textos/apostilas-novas/FJ-11",
-				"FJ-11",
-				"01,18,19,20,21,22"
+				"/Users/mauricioaniche/Desktop/struts2",
+				"FJ-39",
+				"00"
 				);
 		
 		runner.start();

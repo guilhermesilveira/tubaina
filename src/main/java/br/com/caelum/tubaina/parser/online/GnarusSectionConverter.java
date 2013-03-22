@@ -35,6 +35,7 @@ public class GnarusSectionConverter {
 
 	public GnarusSection convert(Afc afc) {
 
+		System.out.println("Capitulo " + afc.getNumber());
 		Chapter chapter = chapterFrom(afc.getText());
 		String text = replaceImgs(extractFromChunks(chapter));
         String title = chapter.getTitle();
