@@ -5,18 +5,22 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.log4j.Logger;
+
+import br.com.caelum.tubaina.builder.BookBuilder;
 
 public class AfcReader {
+	
+    private static final Logger LOG = Logger.getLogger(BookBuilder.class);
 
-	public Afc read(String file) {
-		
-		File source = new File(file);
-		return read(source);
+    public Afc read(String file) {
+		return read(new File(file));
 	}
 
 	public Afc read(File source) {
 		try {
 
+			LOG.info("Parsing " + source.getName());
 			String content = IOUtils.toString(new FileInputStream(source));
 
 			Afc afc = new Afc(getSectionNumber(source));

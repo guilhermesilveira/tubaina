@@ -3,14 +3,16 @@ package br.com.caelum.tubaina.parser.online;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+import org.apache.log4j.Logger;
+
+import br.com.caelum.tubaina.builder.BookBuilder;
 import br.com.caelum.tubaina.resources.ResourceLocator;
 
 public class Runner {
 
+    private static final Logger LOG = Logger.getLogger(BookBuilder.class);
 	private final AfcReader reader;
 	private final String afcPath;
 	private final String courseCode;
@@ -69,7 +71,7 @@ public class Runner {
 			System.exit(1);
 		}
 		parseAndUpload(server, extraParameter, path, code, ignore);
-		System.out.println("FINISH!");
+		LOG.info("FINISH!");
 	}
 
 	private static void parseAndUpload(String server, String extraParameter,

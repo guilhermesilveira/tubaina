@@ -49,8 +49,7 @@ public class Afc {
 		for (File f : origin.listFiles()) {
 			File absolute = f.getAbsoluteFile();
 			String fileName = absolute.getName();
-			if (origin.isFile() && fileName.endsWith(".afc")
-					&& !ignore(fileName, ignoreExpr)) {
+			if (f.isFile() && fileName.endsWith(".afc") && !ignore(fileName, ignoreExpr)) {
 				files.add(absolute);
 			}
 		}			
