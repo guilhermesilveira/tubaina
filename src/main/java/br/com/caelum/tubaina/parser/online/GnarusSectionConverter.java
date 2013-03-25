@@ -69,7 +69,7 @@ public class GnarusSectionConverter {
 
 	private String defaultAnswer(String answer) {
 		if(answer!=null && answer.length()>0) return answer;
-		return "Excelente! Se você teve alguma dificuldade, não hesite em abrir uma dúvida, ok!?";
+		return "Excelente! Se voc�� teve alguma dificuldade, n��o hesite em abrir uma d��vida, ok!?";
 	}
 
 	private String replaceImgs(String extractFromChunks) {
@@ -93,11 +93,12 @@ public class GnarusSectionConverter {
 	private String extractFromChunks(Chapter c) {
 		StringBuilder result = new StringBuilder();
 
-		Section s = c.getSections().get(0);
-    	for(Chunk chunk : s.getChunks()) {
-    		String html = chunk.getContent(parser);
-    		result.append(html);
-    	}
+		for(Section s : c.getSections()) {
+			for(Chunk chunk : s.getChunks()) {
+    			String html = chunk.getContent(parser);
+    			result.append(html);
+			}
+		}
 		return result.toString();
 	}
 }

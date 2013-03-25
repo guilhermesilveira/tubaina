@@ -10,10 +10,10 @@ import org.apache.log4j.Logger;
 import br.com.caelum.tubaina.builder.BookBuilder;
 
 public class AfcReader {
-	
-    private static final Logger LOG = Logger.getLogger(BookBuilder.class);
 
-    public Afc read(String file) {
+	private static final Logger LOG = Logger.getLogger(BookBuilder.class);
+
+	public Afc read(String file) {
 		return read(new File(file));
 	}
 
@@ -25,14 +25,20 @@ public class AfcReader {
 
 			Afc afc = new Afc(getSectionNumber(source));
 			String[] textAndExercises = content.split("\\[exercise\\]");
-			afc.addText(textAndExercises[0]);
-			
-			for(int i = 1; i < textAndExercises.length; i++) {
-				String[] moreText = textAndExercises[i].split("\\[/exercise\\]");
-				afc.addExercises(moreText[0]);
-				if(moreText.length > 1) afc.addText(moreText[1]);
+			String text = textAndExercises[0];
+			afc.addText(text);
+
+			for (int i = 1; i < textAndExercises.length; i++) {
+				String[] moreText = textAndExercises[i]
+						.split("\\[/exercise\\]");
+				String exercises = moreText[0];
+				afc.addExercises(exercises);
+				if (moreText.length > 1) {
+					String extraContent = moreText[1];
+					afc.addText(extraContent);
+				}
 			}
-			
+
 			return afc;
 		} catch (IOException e) {
 			throw new RuntimeException(e);
