@@ -92,6 +92,8 @@ public class GnarusSectionConverter {
 
 	private String extractFromChunks(Chapter c) {
 		StringBuilder result = new StringBuilder();
+		String introduction = c.getIntroduction(parser);
+		result.append(introduction);
 
 		for(Section s : c.getSections()) {
 			for(Chunk chunk : s.getChunks()) {

@@ -1,9 +1,9 @@
 package br.com.caelum.tubaina.parser.online;
 
 import java.io.File;
-import java.util.List;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -30,12 +30,12 @@ public class RemoteServer {
 		try {
 			String xml = toXml(course);
 
-			 PrintStream backup = new PrintStream(new File("_sending_to_online.xml"));
+			 PrintStream backup = new PrintStream(new File("_sending_to_online.xml"), Afc.FILE_ENCODING);
 			 backup.println(xml);
 			 backup.close();
 
 			DefaultHttpClient client = new DefaultHttpClient();
-			List<NameValuePair> params = new ArrayList<NameValuePair>();
+			List<NameValuePair> params = new ArrayList<>();
 			params.add(new BasicNameValuePair("xml", xml));
 			params.add(new BasicNameValuePair("extra", extraParameter));
 
@@ -60,7 +60,6 @@ public class RemoteServer {
 		xs.alias("tubainaCourse", GnarusCourse.class);
 		xs.alias("tubainaSection", GnarusSection.class);
 		xs.alias("tubainaExercise", GnarusExercise.class);
-		String xml = xs.toXML(course);
-		return xml;
+		return xs.toXML(course);
 	}
 }

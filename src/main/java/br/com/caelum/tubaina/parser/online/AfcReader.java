@@ -21,7 +21,7 @@ public class AfcReader {
 		try {
 
 			LOG.info("Parsing " + source.getName());
-			String content = IOUtils.toString(new FileInputStream(source));
+			String content = IOUtils.toString(new FileInputStream(source), Afc.FILE_ENCODING);
 
 			Afc afc = new Afc(getSectionNumber(source));
 			String[] textAndExercises = content.split("\\[exercise\\]");
