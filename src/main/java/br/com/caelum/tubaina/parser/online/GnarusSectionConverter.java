@@ -69,7 +69,7 @@ public class GnarusSectionConverter {
 
 	private String defaultAnswer(String answer) {
 		if(answer!=null && answer.length()>0) return answer;
-		return "Excelente! Se voc�� teve alguma dificuldade, n��o hesite em abrir uma d��vida, ok!?";
+		return "Excelente! Se você teve alguma dificuldade, não hesite em abrir uma dúvida, ok!?";
 	}
 
 	private String replaceImgs(String extractFromChunks) {
