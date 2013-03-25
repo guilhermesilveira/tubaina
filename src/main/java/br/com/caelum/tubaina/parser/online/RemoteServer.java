@@ -30,9 +30,10 @@ public class RemoteServer {
 		try {
 			String xml = toXml(course);
 
-			 PrintStream backup = new PrintStream(new File("_sending_to_online.xml"), Afc.FILE_ENCODING);
-			 backup.println(xml);
-			 backup.close();
+			PrintStream backup = new PrintStream(new File(
+					"_sending_to_online.xml"), AfcSplitFiles.FILE_ENCODING);
+			backup.println(xml);
+			backup.close();
 
 			DefaultHttpClient client = new DefaultHttpClient();
 			List<NameValuePair> params = new ArrayList<>();
@@ -48,7 +49,8 @@ public class RemoteServer {
 			int code = response.getStatusLine().getStatusCode();
 			if (code != 200) {
 				String body = EntityUtils.toString(response.getEntity());
-				throw new RuntimeException("Error code " + code + "\n\n\n" + body);
+				throw new RuntimeException("Error code " + code + "\n\n\n"
+						+ body);
 			}
 		} catch (Exception e) {
 			throw new RuntimeException(e);
