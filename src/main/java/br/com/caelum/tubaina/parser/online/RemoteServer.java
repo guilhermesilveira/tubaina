@@ -15,13 +15,13 @@ import org.apache.http.util.EntityUtils;
 
 import com.thoughtworks.xstream.XStream;
 
-public class Gnarus {
+public class RemoteServer {
 
-	private static final String GNARUS_URL = "/admin/8921d89ujdwh897u234hu/tubaina";
+	private static final String REMOTE_PATH = "/admin/8921d89ujdwh897u234hu/tubaina";
 	private final String server;
 	private final String extraParameter;
 
-	public Gnarus(String server, String extraParameter) {
+	public RemoteServer(String server, String extraParameter) {
 		this.server = server;
 		this.extraParameter = extraParameter;
 	}
@@ -29,23 +29,26 @@ public class Gnarus {
 	public void sync(GnarusCourse course) {
 		try {
 			String xml = toXml(course);
-			
-			PrintStream backup = new PrintStream(new File("./gnarus.xml"));
-			backup.println(xml);
-			backup.close();
+
+			 PrintStream backup = new PrintStream(new File("_sending_to_online.xml"));
+			 backup.println(xml);
+			 backup.close();
 
 			DefaultHttpClient client = new DefaultHttpClient();
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
-			params.add(new BasicNameValuePair("xml",xml));
+			params.add(new BasicNameValuePair("xml", xml));
 			params.add(new BasicNameValuePair("extra", extraParameter));
-			
-			HttpPost post = new HttpPost("http://" + server + GNARUS_URL);
-			UrlEncodedFormEntity entity = new UrlEncodedFormEntity(params,"UTF-8");
+
+			HttpPost post = new HttpPost("http://" + server + REMOTE_PATH);
+			UrlEncodedFormEntity entity = new UrlEncodedFormEntity(params,
+					"UTF-8");
 			post.setEntity(entity);
 
 			HttpResponse response = client.execute(post);
-			if(response.getStatusLine().getStatusCode()!=200){
-				throw new RuntimeException(EntityUtils.toString(response.getEntity()));
+			int code = response.getStatusLine().getStatusCode();
+			if (code != 200) {
+				String body = EntityUtils.toString(response.getEntity());
+				throw new RuntimeException("Error code " + code + "\n\n\n" + body);
 			}
 		} catch (Exception e) {
 			throw new RuntimeException(e);

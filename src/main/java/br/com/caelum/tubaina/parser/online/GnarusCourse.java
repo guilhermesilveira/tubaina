@@ -4,8 +4,8 @@ import java.util.List;
 
 public class GnarusCourse {
 
-	private String code;
-	private List<GnarusSection> sections;
+	private final String code;
+	private final List<GnarusSection> sections;
 	
 	public GnarusCourse(String code, List<GnarusSection> sections) {
 		this.code = code;

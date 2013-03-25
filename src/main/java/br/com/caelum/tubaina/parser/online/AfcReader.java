@@ -1,22 +1,24 @@
 package br.com.caelum.tubaina.parser.online;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
+import java.io.FileInputStream;
+import java.io.IOException;
+
+import org.apache.commons.io.IOUtils;
 
 public class AfcReader {
 
 	public Afc read(String file) {
 		
+		File source = new File(file);
+		return read(source);
+	}
+
+	public Afc read(File source) {
 		try {
-			File source = new File(file);
-			
-			String content = "";
-			Scanner sc = new Scanner(source);
-			while(sc.hasNextLine()) {
-				content += sc.nextLine() + "\n";
-			}
-			
+
+			String content = IOUtils.toString(new FileInputStream(source));
+
 			Afc afc = new Afc(getSectionNumber(source));
 			String[] textAndExercises = content.split("\\[exercise\\]");
 			afc.addText(textAndExercises[0]);
@@ -28,13 +30,14 @@ public class AfcReader {
 			}
 			
 			return afc;
-		} catch (FileNotFoundException e) {
+		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
 	}
 
 	private int getSectionNumber(File source) {
-		int number = Integer.parseInt(source.getAbsoluteFile().getName().split("-")[0]);
+		String fileName = source.getAbsoluteFile().getName();
+		int number = Integer.parseInt(fileName.split("-")[0]);
 		return number;
 	}
 }
