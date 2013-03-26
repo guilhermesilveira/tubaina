@@ -2,6 +2,8 @@ package br.com.caelum.tubaina.parser.online;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Afc {
 
@@ -42,6 +44,15 @@ public class Afc {
 
 	public int getNumber() {
 		return number;
+	}
+
+	public void addTextFromExercises(String exercises) {
+		String[] questions = exercises.split("\\[question\\]");
+		for(String question : questions) {
+			question = question.replace("[/question]", "").trim();
+			if(question.isEmpty()) continue;
+			addText(question);
+		}
 	}
 
 }

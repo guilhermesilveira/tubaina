@@ -46,8 +46,8 @@ public class GnarusSectionConverter {
 		for(String sb : afc.getExercises()) {
 			try {
 				Chapter questionChap = exerciseFrom(sb);
-				String question = extractFromChunks(questionChap);
-				String answer = answerFrom(sb);
+				String question = replaceImgs(extractFromChunks(questionChap));
+				String answer = replaceImgs(answerFrom(sb));
 				
 				convertedSection.addExercise(new GnarusExercise(exNumber++, question, defaultAnswer(answer)));
 			} catch(Exception e) {

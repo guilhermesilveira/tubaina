@@ -24,7 +24,7 @@ public class AfcReader {
 			String content = IOUtils.toString(new FileInputStream(source), AfcSplitFiles.FILE_ENCODING);
 
 			Afc afc = new Afc(getSectionNumber(source));
-			String[] textAndExercises = content.split("\\[exercise\\]");
+			String[] textAndExercises = content.split("\\[exercise.*\\]");
 			String text = textAndExercises[0];
 			afc.addText(text);
 
@@ -32,6 +32,10 @@ public class AfcReader {
 				String[] moreText = textAndExercises[i]
 						.split("\\[/exercise\\]");
 				String exercises = moreText[0];
+				if(exercises.contains("[include-in-explanation]")) {
+					exercises = exercises.replaceAll("\\[include\\-in\\-explanation\\]", "");
+					afc.addTextFromExercises(exercises);
+				}
 				afc.addExercises(exercises);
 				if (moreText.length > 1) {
 					String extraContent = moreText[1];

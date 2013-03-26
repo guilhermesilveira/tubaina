@@ -8,7 +8,7 @@ import br.com.caelum.tubaina.parser.Parser;
 
 public class QuestionChunk implements CompositeChunk {
 
-	private List<Chunk> body;
+	private final List<Chunk> body;
 
 	public QuestionChunk(List<Chunk> body) {
 		this.body = body;

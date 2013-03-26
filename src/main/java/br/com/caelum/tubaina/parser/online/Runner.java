@@ -47,7 +47,7 @@ public class Runner {
 	public static void main(String[] args) throws IOException {
 		Parameters params = new Parameters(args);
 		if(params.get("code").equals("")) {
-			System.out.println("Usage: java -cp runner.jar br.com.caelum.tubaina.parser.online.Runner -server=online.uri.com.br -extraParameter=extra_parameter -path=path_to_all_afc -code=FJ-XX -ignore=PATTERN -splitPerSection=true|false");
+			System.out.println("Usage: java -cp tubaina-uploader.jar -server=ww.uri.com -extraParameter=extra_parameter -path=path_to_all_afc -code=COURSE-CODE -ignore=IGNORE-FILE-PATTERN -splitPerSection=true|false");
 			System.err.println("Did not set the course code");
 			System.exit(1);
 		}
