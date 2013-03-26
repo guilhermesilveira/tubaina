@@ -49,9 +49,12 @@ public class GnarusSectionConverter {
 				String question = replaceImgs(extractFromChunks(questionChap));
 				String answer = replaceImgs(answerFrom(sb));
 				
-				convertedSection.addExercise(new GnarusExercise(exNumber++, question, defaultAnswer(answer)));
+				GnarusExercise exercise = new GnarusExercise(exNumber++, question, defaultAnswer(answer));
+				convertedSection.addExercise(exercise);
 			} catch(Exception e) {
-				System.out.println("Exercicio " + exNumber + " no cap " + title + " nao rolou");
+				System.err.println("Exercicio " + exNumber + " no cap " + title + " nao rolou");
+				System.err.println(sb);
+				e.printStackTrace();
 			}
 		}
 		
@@ -72,8 +75,8 @@ public class GnarusSectionConverter {
 		return "Excelente! Se você teve alguma dificuldade, não hesite em abrir uma dúvida, ok!?";
 	}
 
-	private String replaceImgs(String extractFromChunks) {
-		return extractFromChunks.replace("$$RELATIVE$$", IMG_URL + courseCode);
+	private String replaceImgs(String text) {
+		return text==null?"" : text.replace("$$RELATIVE$$", IMG_URL + courseCode);
 	}
 
 	private Chapter chapterFrom(String originalContent) {
