@@ -8,6 +8,7 @@ import br.com.caelum.tubaina.Chapter;
 import br.com.caelum.tubaina.Chunk;
 import br.com.caelum.tubaina.Section;
 import br.com.caelum.tubaina.builder.BookBuilder;
+import br.com.caelum.tubaina.chunk.ExerciseChunk;
 import br.com.caelum.tubaina.parser.RegexConfigurator;
 import br.com.caelum.tubaina.parser.Tag;
 
@@ -55,6 +56,7 @@ public class GnarusSectionConverter {
 				System.err.println("Exercicio " + exNumber + " no cap " + title + " nao rolou");
 				System.err.println(sb);
 				e.printStackTrace();
+				System.exit(1);
 			}
 		}
 		
@@ -84,7 +86,9 @@ public class GnarusSectionConverter {
 		builder.addReaderFromString(originalContent);
 		
         Book book = builder.build();
-		Chapter uniqueChapter = book.getChapters().get(0);
+		List<Chapter> chapters = book.getChapters();
+		if(chapters.isEmpty()) throw new IllegalArgumentException("There is no chapter in this file");
+		Chapter uniqueChapter = chapters.get(0);
         return uniqueChapter;
 	}
 	
@@ -98,12 +102,28 @@ public class GnarusSectionConverter {
 		String introduction = c.getIntroduction(parser);
 		result.append(introduction);
 
-		for(Section s : c.getSections()) {
-			for(Chunk chunk : s.getChunks()) {
-    			String html = chunk.getContent(parser);
-    			result.append(html);
+		for(Section section : c.getSections()) {
+			String sectionContent = grabSection(section);
+			if(!sectionContent.trim().isEmpty()) {
+				result.append("<h3>" + section.getTitle() + "</h3>");
+				result.append(sectionContent);
 			}
 		}
 		return result.toString();
+	}
+
+	private String grabSection(Section s) {
+		StringBuilder content = new StringBuilder();
+		for(Chunk chunk : s.getChunks()) {
+			if(chunk instanceof ExerciseChunk) {
+				String html = chunk.getContent(new ExerciseWithoutAnswerParser(parser));
+				content.append(html);
+			} else {
+				String html = chunk.getContent(parser);
+				content.append(html);
+			}
+			content.append("\n");
+		}
+		return content.toString();
 	}
 }
