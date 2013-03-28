@@ -106,7 +106,7 @@ public class GnarusSectionConverter {
 			String sectionContent = grabSection(section);
 			if(!sectionContent.trim().isEmpty()) {
 				if(!section.getTitle().contains("__YY__")) {
-					result.append("<h3>" + section.getTitle() + "</h3>");
+					result.append("\n<b>" + section.getTitle() + "</b>\n\n");
 				}
 				result.append(sectionContent);
 			}
