@@ -22,7 +22,7 @@ public class CodeTagTest {
                 new CommandExecutor(), CodeOutputType.LATEX, false, new CodeCache(CodeOutputType.LATEX)));
     }
 
-    @Test
+//    @Test
     public void testPropertiesCodeTag() throws Exception {
         String options = "properties";
         String string = "blablah blah\n" + "#algum comentario\n" + "texto=valor\n"
@@ -32,7 +32,7 @@ public class CodeTagTest {
         assertPygmentsRan(output);
     }
 
-    @Test
+//    @Test
     public void testPropertiesCodeTagWithEscapes() throws Exception {
         String options = "properties abc";
         String string = "blablah blah\n" + "#algum comentario\n" + "texto\\=valor=valor\n"

@@ -93,7 +93,7 @@ public class GnarusSectionConverter {
 	}
 	
 	private Chapter exerciseFrom(String originalContent) {
-		String fakeChapter = "[chapter x][section y][exercise][question]" + originalContent + "[/question][/exercise]";
+		String fakeChapter = "[chapter x][section __YY__][exercise][question]" + originalContent + "[/question][/exercise]";
 		return chapterFrom(fakeChapter);
 	}
 
@@ -105,7 +105,9 @@ public class GnarusSectionConverter {
 		for(Section section : c.getSections()) {
 			String sectionContent = grabSection(section);
 			if(!sectionContent.trim().isEmpty()) {
-				result.append("<h3>" + section.getTitle() + "</h3>");
+				if(!section.getTitle().contains("__YY__")) {
+					result.append("<h3>" + section.getTitle() + "</h3>");
+				}
 				result.append(sectionContent);
 			}
 		}
