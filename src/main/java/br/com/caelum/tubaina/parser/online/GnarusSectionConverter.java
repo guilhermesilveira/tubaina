@@ -14,6 +14,8 @@ import br.com.caelum.tubaina.parser.Tag;
 
 public class GnarusSectionConverter {
 
+	private static final String FAKE_SECTION_TITLE = "__YY__";
+	private static final String FAKE_CHAPTER_AND_SECTION = "[chapter x][section " + FAKE_SECTION_TITLE + "]";
 	private static final String IMG_URL = "http://s3.amazonaws.com/caelum-online-public/";
 	private static RegexConfigurator conf;
 	private static List<Tag> tags;
@@ -68,7 +70,7 @@ public class GnarusSectionConverter {
 		if(originalContent.length <= 1) return null;
 		
 		String theAnswer = originalContent[1].split("\\[/answer\\]")[0];
-		String fakeChapter = "[chapter x][section y]" + theAnswer;
+		String fakeChapter = FAKE_CHAPTER_AND_SECTION + theAnswer;
 		return extractFromChunks(chapterFrom(fakeChapter));
 	}
 
@@ -93,7 +95,7 @@ public class GnarusSectionConverter {
 	}
 	
 	private Chapter exerciseFrom(String originalContent) {
-		String fakeChapter = "[chapter x][section __YY__][exercise][question]" + originalContent + "[/question][/exercise]";
+		String fakeChapter = FAKE_CHAPTER_AND_SECTION + "[exercise][question]" + originalContent + "[/question][/exercise]";
 		return chapterFrom(fakeChapter);
 	}
 
@@ -105,7 +107,7 @@ public class GnarusSectionConverter {
 		for(Section section : c.getSections()) {
 			String sectionContent = grabSection(section);
 			if(!sectionContent.trim().isEmpty()) {
-				if(!section.getTitle().contains("__YY__")) {
+				if(!section.getTitle().contains(FAKE_SECTION_TITLE)) {
 					result.append("\n<b>" + section.getTitle() + "</b>\n\n");
 				}
 				result.append(sectionContent);
